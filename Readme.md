@@ -8,7 +8,6 @@
 - https://docs.oracle.com/en/database/oracle/oracle-database/21/arpls/database-pl-sql-packages-and-types-reference.pdf
 - https://docs.oracle.com/en/database/oracle/oracle-database/21/lnpls/index.html
 
-
 ## Database Sample Schemas
 
 **Repositorio:** https://github.com/oracle-samples/db-sample-schemas
