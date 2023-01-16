@@ -18,6 +18,11 @@ Start SQL*Plus and run the top level installation:
 
     sqlplus system/systempw@//localhost:1521/XE
     SQL> @/mnt/c/labs/samples.sql
+    
+    cd /mnt/c/app/usuario.qaracter/product/21c/dbhomeXE/bin
+    ./sqlplus.exe system/Qaracter123@//localhost:1521/XE
+
+
 
 ## Labs
 
