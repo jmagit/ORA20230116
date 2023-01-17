@@ -71,11 +71,11 @@ GRANT drop any directory TO oe;
 GRANT alter session TO oe;
 
 -- Create stored objects
-   @/mnt/c/labs/samples/order_entry/xdbSupport
+   @c:\labs\samples\order_entry\xdbSupport
 
 
 -- Create directory object, instantiated by createUser.sql.sbs
- @/mnt/c/labs/samples/order_entry/createUser &pass_oe &pass_sys &connect_string
+ @c:\labs\samples\order_entry\createUser &pass_oe &pass_sys &connect_string
 
 
 
@@ -88,7 +88,7 @@ CONNECT oe/&pass_oe@&connect_string;
 ALTER SESSION SET NLS_NUMERIC_CHARACTERS='.,';
 
 -- Create folders and load
- @/mnt/c/labs/samples/order_entry/xdb03usg
+ @c:\labs\samples\order_entry\xdb03usg
 
 
 --

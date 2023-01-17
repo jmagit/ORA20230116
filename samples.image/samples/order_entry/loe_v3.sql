@@ -60,22 +60,22 @@ PROMPT Setting FEEDBACK OFF for inserts
 PROMPT
 SET FEEDBACK OFF
 
-@/mnt/c/labs/samples/order_entry/oe_p_pi
+@c:\labs\samples\order_entry\oe_p_pi
 
-@/mnt/c/labs/samples/order_entry/oe_p_pd
+@c:\labs\samples\order_entry\oe_p_pd
 
-DEFINE vscript = /mnt/c/labs/samples/order_entry/pwhs_&vrs
+DEFINE vscript = c:\labs\samples\order_entry\pwhs_&vrs
 @&vscript
 
-DEFINE vscript = /mnt/c/labs/samples/order_entry/pcus_&vrs
+DEFINE vscript = c:\labs\samples\order_entry\pcus_&vrs
 @&vscript
 
-DEFINE vscript = /mnt/c/labs/samples/order_entry/pord_&vrs
+DEFINE vscript = c:\labs\samples\order_entry\pord_&vrs
 @&vscript
 
-@/mnt/c/labs/samples/order_entry/oe_p_itm
+@c:\labs\samples\order_entry\oe_p_itm
 
-@/mnt/c/labs/samples/order_entry/oe_p_inv
+@c:\labs\samples\order_entry\oe_p_inv
 
 PROMPT Setting FEEDBACK ON
 PROMPT

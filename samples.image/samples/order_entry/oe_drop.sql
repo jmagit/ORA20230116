@@ -40,7 +40,7 @@ rem
 rem  First drop the Online Catalog (OC) subschema objects
 rem
 
-@/mnt/c/labs/samples/order_entry/oc_drop.sql
+@c:\labs\samples\order_entry\oc_drop.sql
 
 DROP TABLE        customers             CASCADE CONSTRAINTS;
 DROP TABLE        inventories           CASCADE CONSTRAINTS;

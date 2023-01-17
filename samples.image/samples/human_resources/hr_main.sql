@@ -122,36 +122,36 @@ ALTER SESSION SET NLS_TERRITORY=America;
 -- create tables, sequences and constraint
 --
 
-@/mnt/c/labs/samples/human_resources/hr_cre
+@c:\labs\samples\human_resources\hr_cre
 
 -- 
 -- populate tables
 --
 
-@/mnt/c/labs/samples/human_resources/hr_popul
+@c:\labs\samples\human_resources\hr_popul
 
 --
 -- create indexes
 --
 
-@/mnt/c/labs/samples/human_resources/hr_idx
+@c:\labs\samples\human_resources\hr_idx
 
 --
 -- create procedural objects
 --
 
-@/mnt/c/labs/samples/human_resources/hr_code
+@c:\labs\samples\human_resources\hr_code
 
 --
 -- add comments to tables and columns
 --
 
-@/mnt/c/labs/samples/human_resources/hr_comnt
+@c:\labs\samples\human_resources\hr_comnt
 
 --
 -- gather schema statistics
 --
 
-@/mnt/c/labs/samples/human_resources/hr_analz
+@c:\labs\samples\human_resources\hr_analz
 
 spool off

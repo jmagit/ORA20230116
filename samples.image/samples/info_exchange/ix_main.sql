@@ -207,7 +207,7 @@ REM =======================================================
 
 CONNECT ix/&pass@&connect_string
 
-DEFINE vscript = /mnt/c/labs/samples/info_exchange/cix_&vrs
+DEFINE vscript = c:\labs\samples\info_exchange\cix_&vrs
 @&vscript
 
 REM =======================================================
@@ -216,7 +216,7 @@ REM =======================================================
 
 CONNECT ix/&pass@&connect_string
 
-DEFINE vscript = /mnt/c/labs/samples/info_exchange/vix_&vrs
+DEFINE vscript = c:\labs\samples\info_exchange\vix_&vrs
 @&vscript
 
 REM =======================================================

@@ -126,20 +126,20 @@ REM  Changes made as OE
 REM     Grant object privileges to BI
 REM =======================================================
 
-@/mnt/c/labs/samples/bus_intelligence/bi_oe_pr.sql &pwd_oe &connect_string
+@c:\labs\samples\bus_intelligence\bi_oe_pr.sql &pwd_oe &connect_string
 
 REM =======================================================
 REM  Changes made as SH 
 REM     Grant object privileges to BI
 REM =======================================================
 
-@/mnt/c/labs/samples/bus_intelligence/bi_sh_pr.sql &pwd_sh &connect_string
+@c:\labs\samples\bus_intelligence\bi_sh_pr.sql &pwd_sh &connect_string
 
 REM =======================================================
 REM  Views and synonyms in the 10i BI schema
 REM =======================================================
 
-@/mnt/c/labs/samples/bus_intelligence/bi_views.sql &pwd_bi &connect_string
+@c:\labs\samples\bus_intelligence\bi_views.sql &pwd_bi &connect_string
 
 REM =======================================================
 REM  Verification

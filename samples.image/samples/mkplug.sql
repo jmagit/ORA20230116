@@ -167,7 +167,7 @@ CREATE USER sh IDENTIFIED BY &&password_sh ;
 CREATE USER pm IDENTIFIED BY &&password_pm ;
 CREATE USER bi IDENTIFIED BY &&password_bi ;
 
-@/mnt/c/labs/samples/mk_dir
+@c:\labs\samples\mk_dir
 
 GRANT CREATE SESSION			TO hr;
 GRANT ALTER SESSION			TO hr;
@@ -479,7 +479,7 @@ WITH READ ONLY;
 -- Rebuilding procedural objects
 --
 
-@/mnt/c/labs/samples/human_resources/hr_code
+@c:\labs\samples\human_resources\hr_code
 
 -- rebuild OE by dropping and recreating
 CONNECT sys/&&password_sys AS SYSDBA;
@@ -500,7 +500,7 @@ grant create any directory TO oe;
 GRANT drop any directory TO oe;
 GRANT alter session TO oe;
 
-@/mnt/c/labs/samples/order_entry/oe_main.sql &&password_oe EXAMPLE TEMP  &&password_hr &&password_sys &&oe_data_path &&log_path &vrs
+@c:\labs\samples\order_entry\oe_main.sql &&password_oe EXAMPLE TEMP  &&password_hr &&password_sys &&oe_data_path &&log_path &vrs
 
 -- 
 -- oe_main.sql creates and closes it's own log file.  start part2 of mkplug here
@@ -775,7 +775,7 @@ PROMPT
 PROMPT Creating views, synonyms for BI ...
 SELECT TO_CHAR(systimestamp, 'YYYYMMDD HH:MI:SS')  FROM dual;
 
-@/mnt/c/labs/samples/bus_intelligence/bi_views.sql &&password_bi
+@c:\labs\samples\bus_intelligence\bi_views.sql &&password_bi
 
 --
 -- set up extra contraints in the PM schema
@@ -796,13 +796,13 @@ connect sys/&&password_sys as sysdba
 
 -- reanalyze everything so that we're all up to date
 connect oe/&&password_oe;
-@/mnt/c/labs/samples/order_entry/oe_analz
+@c:\labs\samples\order_entry\oe_analz
 connect pm/&&password_pm;
-@/mnt/c/labs/samples/product_media/pm_analz
+@c:\labs\samples\product_media\pm_analz
 connect hr/&&password_hr;
-@/mnt/c/labs/samples/human_resources/hr_analz
+@c:\labs\samples\human_resources\hr_analz
 connect sh/&&password_sh
-@/mnt/c/labs/samples/sales_history/sh_analz
+@c:\labs\samples\sales_history\sh_analz
 
 REM Validate certain AQ within IX schema after TTS import
 

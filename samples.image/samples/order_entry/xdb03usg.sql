@@ -49,13 +49,13 @@ Rem    cbauwens    03/16/04 - Created
 --
 -- Create Repository Folder Hierarchy
 --
-@/mnt/c/labs/samples/order_entry/createFolders.sql
+@c:\labs\samples\order_entry\createFolders.sql
 
 
 --
 -- Load example documents into the XDB repository
 --
-@/mnt/c/labs/samples/order_entry/createResources.sql
+@c:\labs\samples\order_entry\createResources.sql
 
 
 --

@@ -155,33 +155,33 @@ CONNECT system/&&password_system@&&connect_string
 
 SET SHOWMODE OFF
 
-@/mnt/c/labs/samples/human_resources/hr_main.sql &&password_hr &&default_ts &&temp_ts &&password_sys &&logfile_dir &&connect_string
+@c:\labs\samples\human_resources\hr_main.sql &&password_hr &&default_ts &&temp_ts &&password_sys &&logfile_dir &&connect_string
 
 CONNECT system/&&password_system@&&connect_string
 SET SHOWMODE OFF
 
-@/mnt/c/labs/samples/order_entry/oe_main.sql &&password_oe &&default_ts &&temp_ts &&password_hr &&password_sys /mnt/c/labs/samples/order_entry/ &&logfile_dir &vrs &&connect_string
+@c:\labs\samples\order_entry\oe_main.sql &&password_oe &&default_ts &&temp_ts &&password_hr &&password_sys c:\labs\samples\order_entry\ &&logfile_dir &vrs &&connect_string
 
 CONNECT system/&&password_system@&&connect_string
 
 SET SHOWMODE OFF
 
-@/mnt/c/labs/samples/product_media/pm_main.sql &&password_pm &&default_ts &&temp_ts &&password_oe &&password_sys /mnt/c/labs/samples/product_media/ &&logfile_dir /mnt/c/labs/samples/product_media/ &&connect_string
+@c:\labs\samples\product_media\pm_main.sql &&password_pm &&default_ts &&temp_ts &&password_oe &&password_sys c:\labs\samples\product_media\ &&logfile_dir c:\labs\samples\product_media\ &&connect_string
 
 CONNECT system/&&password_system@&&connect_string
 SET SHOWMODE OFF
 
-@/mnt/c/labs/samples/info_exchange/ix_main.sql &&password_ix &&default_ts &&temp_ts &&password_sys &&logfile_dir &vrs &&connect_string
+@c:\labs\samples\info_exchange\ix_main.sql &&password_ix &&default_ts &&temp_ts &&password_sys &&logfile_dir &vrs &&connect_string
 
 CONNECT system/&&password_system@&&connect_string
 SET SHOWMODE OFF
 
-@/mnt/c/labs/samples/sales_history/sh_main &&password_sh &&default_ts &&temp_ts &&password_sys /mnt/c/labs/samples/sales_history/ &&logfile_dir &vrs &&connect_string
+@c:\labs\samples\sales_history\sh_main &&password_sh &&default_ts &&temp_ts &&password_sys c:\labs\samples\sales_history\ &&logfile_dir &vrs &&connect_string
 
 CONNECT system/&&password_system@&&connect_string
 SET SHOWMODE OFF
 
-@/mnt/c/labs/samples/bus_intelligence/bi_main &&password_bi &&default_ts &&temp_ts &&password_sys &&password_oe &&password_sh &&logfile_dir &vrs &&connect_string
+@c:\labs\samples\bus_intelligence\bi_main &&password_bi &&default_ts &&temp_ts &&password_sys &&password_oe &&password_sh &&logfile_dir &vrs &&connect_string
 
 CONNECT system/&&password_system@&&connect_string
 
@@ -189,6 +189,6 @@ SPOOL OFF
 
 DEFINE veri_spool = &&logfile_dir.mkverify_&vrs..log
 
-@/mnt/c/labs/samples/mkverify &&password_system &veri_spool &&connect_string
+@c:\labs\samples\mkverify &&password_system &veri_spool &&connect_string
 
 exit

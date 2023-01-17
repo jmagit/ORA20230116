@@ -174,21 +174,21 @@ REM =======================================================
 
 REM CONNECT sh/&pass  reconnecting undoes the prior NLS settings
 
-DEFINE vscript = /mnt/c/labs/samples/sales_history/csh_&vrs
+DEFINE vscript = c:\labs\samples\sales_history\csh_&vrs
 @&vscript
 
 REM =======================================================
 REM Populate tables
 REM =======================================================
 
-DEFINE vscript = /mnt/c/labs/samples/sales_history/lsh_&vrs 
+DEFINE vscript = c:\labs\samples\sales_history\lsh_&vrs 
 @&vscript &pass &data_dir &log_dir &vrs &connect_string
 
 REM =======================================================
 REM Post load operations
 REM =======================================================
 
-DEFINE vscript = /mnt/c/labs/samples/sales_history/psh_&vrs 
+DEFINE vscript = c:\labs\samples\sales_history\psh_&vrs 
 @&vscript
 
 

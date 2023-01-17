@@ -41,8 +41,8 @@ Rem    cbauwens    03/16/04 - Created
 
 
 -- Prepare environment
-@/mnt/c/labs/samples/order_entry/xdbConfiguration
-@/mnt/c/labs/samples/order_entry/xdbUtilities
+@c:\labs\samples\order_entry\xdbConfiguration
+@c:\labs\samples\order_entry\xdbUtilities
 
 
 

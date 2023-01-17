@@ -155,34 +155,34 @@ ALTER SESSION SET NLS_TERRITORY=America;
 -- call script to create OE objects
 --
 
-DEFINE vscript = /mnt/c/labs/samples/order_entry/coe_&vrs
+DEFINE vscript = c:\labs\samples\order_entry\coe_&vrs
 @&vscript &vrs &pass &pass_sys &connect_string
 
 --
 -- call script to load OE objects
 --
 
-DEFINE vscript = /mnt/c/labs/samples/order_entry/loe_&vrs
+DEFINE vscript = c:\labs\samples\order_entry\loe_&vrs
 @&vscript &vrs &data_path &log_path &pass
 
 --
 -- call script for post-load operations on OE
 --
 
-DEFINE vscript = /mnt/c/labs/samples/order_entry/poe_&vrs
+DEFINE vscript = c:\labs\samples\order_entry\poe_&vrs
 @&vscript &vrs 
 
 --
 -- OC subschema
 --
 
-@/mnt/c/labs/samples/order_entry/oc_main
+@c:\labs\samples\order_entry\oc_main
 
 --
 -- statistics
 --
 
-@/mnt/c/labs/samples/order_entry/oe_analz
+@c:\labs\samples\order_entry\oe_analz
 
 -- oe_analz invalidates the coe public synonyms - recreate them
 CONNECT sys/&pass_sys@&connect_string AS SYSDBA;  

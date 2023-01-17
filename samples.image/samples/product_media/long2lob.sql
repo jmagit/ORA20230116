@@ -59,9 +59,9 @@ PROMPT specify connect string as parameter 2:
 DEFINE connect_string = &2
 PROMPT
 
-DEFINE ctl_file = /mnt/c/labs/samples/product_media/long2lob.ctl
-DEFINE dat_file = /mnt/c/labs/samples/product_media/long2lob.dat
-DEFINE log_file = /mnt/c/labs/samples/log/longload.log
+DEFINE ctl_file = c:\labs\samples\product_media\long2lob.ctl
+DEFINE dat_file = c:\labs\samples\product_media\long2lob.dat
+DEFINE log_file = c:\labs\samples\log\longload.log
 
 CONNECT pm/&pm_pass@&connect_string;
 
