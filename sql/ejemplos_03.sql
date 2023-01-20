@@ -48,3 +48,9 @@ order by job_id desc
 OFFSET &num_page * &&rows ROWS
 FETCH NEXT &rows ROWS WITH TIES
 ;
+
+SELECT NEXT_DAY(sysdate,'TUESDAY') "NEXT DAY"
+  FROM DUAL;
+
+SELECT TO_CHAR(5555, '$99999.00') demo
+  FROM DUAL;

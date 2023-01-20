@@ -14,10 +14,10 @@ FROM employees
 WHERE salary NOT BETWEEN 5000 AND 12000;
 
 -- lab_03_04
-SELECT last_name, job_id, hire_date
+SELECT ALL last_name, job_id, hire_date
 FROM employees
 WHERE last_name in ('Matos', 'Taylor')
-ORDER BY hire_date;
+ORDER BY hire_date ASC;
 
 -- lab_03_05
 SELECT last_name, department_id
@@ -30,13 +30,15 @@ SELECT last_name "Employee", salary "Monthly Salary"
 FROM employees
 WHERE salary NOT BETWEEN 5000 AND 12000
     AND department_id IN (20,50);
+--WHERE (salary < 5000 AND salary > 12000)
+--    OR department_id IN (20,50);
 
 -- lab_03_07
 -- ALTER SESSION SET NLS_LANGUAGE=English;
 
 SELECT last_name, hire_date
 FROM employees
-where '01-JAN-10' <= hire_date AND hire_date < '01-JAN-10';
+where '01-JAN-10' <= hire_date AND hire_date < '01-JAN-11';
 
 -- lab_03_08
 SELECT last_name, job_id 
