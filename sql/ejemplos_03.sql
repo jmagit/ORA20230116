@@ -54,3 +54,17 @@ SELECT NEXT_DAY(sysdate,'TUESDAY') "NEXT DAY"
 
 SELECT TO_CHAR(5555, '$99999.00') demo
   FROM DUAL;
+
+select COUNT(*) from jobs;
+select COUNT(*) from departments;
+select COUNT(*) from employees;
+select COUNT(*) from jobs, employees, departments;
+
+SELECT count(*) from orders;
+SELECT count(*) from order_items;
+SELECT count(*) from product_information;
+SELECT count(*) from product_descriptions;
+
+SELECT count(*) from orders, order_items, product_descriptions;
+
+select * from emp_details_view;
