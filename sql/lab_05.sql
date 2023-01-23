@@ -6,7 +6,7 @@ FROM employees;
 
 -- lab_05_02
 --ALTER SESSION SET NLS_LANGUAGE=English;
-SELECT TO_CHAR(TO_DATE('23-01-2023', 'DD-MM-YYYY'), 'Q') FROM dual;
+SELECT TO_CHAR(TO_DATE('31-07-2000', 'DD-MM-YYYY'), 'fmDay, "the" Ddspth "of" Month, YYYY') FROM dual;
 
 SELECT last_name, hire_date,
     TO_CHAR(NEXT_DAY(ADD_MONTHS(hire_date, 6), 1), -- 'MONDAY' 'LUNES'
@@ -15,8 +15,14 @@ SELECT last_name, hire_date,
 FROM employees;
 
 -- lab_05_03
-SELECT last_name, NVL(TO_CHAR(commission_pct), 'No commission') COMM
-FROM employees;
+SELECT last_name, NVL(TO_CHAR(commission_pct, '0.00'), 'No commission') COMM, NVL(commission_pct, 0) * salary,
+case 
+    when commission_pct is null then 'No commission'
+    else TO_CHAR(commission_pct, '0.00')
+end "con case"
+FROM employees
+--where commission_pct is not null
+;
 
 -- lab_05_04
 SELECT /*DISTINCT*/ job_id, CASE job_id
