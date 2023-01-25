@@ -106,7 +106,7 @@ SELECT count(*) from order_items;
 SELECT count(*) from product_information;
 SELECT count(*) from product_descriptions;
 
-SELECT to_char(count(*), '999,999,999,990') from orders, order_items, product_information;
+SELECT to_char(count(*), '999,999,999,990') from orders, order_items, product_descriptions;
 
 select * from emp_details_view;
 
