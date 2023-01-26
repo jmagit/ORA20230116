@@ -100,14 +100,33 @@ UNION
 SELECT 1 department_id, 'Falso' from dual
 ORDER BY 1;
 select department_id, last_name, salary
-from (SELECT department_id, last_name, salary, 1 orden
-FROM employees e
-UNION
-SELECT department_id, 'TOTAL', sum(salary), 2
-FROM employees e
-GROUP BY department_id
+from (
+    SELECT department_id, last_name, salary, 1 orden
+    FROM employees e
+    UNION
+    SELECT department_id, 'TOTAL DEPARTAMENTO', sum(salary), 2
+    FROM employees e
+    GROUP BY department_id
+    UNION
+    SELECT null, 'TOTAL EMPRESA', sum(salary), 3
+    FROM employees e
+)
 Order by department_id,orden, last_name);
 
+SELECT department_id, DECODE(GROUPING(department_id), 1, 'TOTAL Departments',
+      employee_id), sum(salary)
+FROM employees e
+GROUP BY ROLLUP(department_id, employee_id);
+
+SELECT DECODE(GROUPING(department_name), 1, 'All Departments',
+      department_name) AS department_name,
+   DECODE(GROUPING(job_id), 1, 'All Jobs', job_id) AS job_id,
+   COUNT(*) "Total Empl", AVG(salary) * 12 "Average Sal"
+   FROM employees e, departments d
+   WHERE d.department_id = e.department_id
+   GROUP BY CUBE (department_name, job_id)
+   ORDER BY department_name, job_id;
+   
 SELECT * FROM (
     SELECT job_id, department_id, salary
     FROM employees
@@ -116,12 +135,16 @@ SELECT * FROM (
     sum(salary) for department_id in (20 as "Dept 20", 50 as "Dept 50", 80 as "Dept 80", 90 as "Dept 90")
 );
 
-SELECT * FROM (
-    SELECT EXTRACT(year FROM hire_date) año, TO_CHAR(hire_date, 'Q') trimestre
-    FROM employees
-) PIVOT (
-    count(*) for trimestre in ('1' as "1T", '2' as "2T", '3' as "3T", '4' as "4T")
-)
+SELECT t.*, T1+t.T2+t3+t4 total
+from
+(
+    SELECT * FROM (
+        SELECT EXTRACT(year FROM hire_date) año, TO_CHAR(hire_date, 'Q') trimestre
+        FROM employees
+    ) PIVOT (
+        count(*) for trimestre in ('1' as "T1", '2' as "T2", '3' as "T3", '4' as "T4")
+    )
+) t
 ORDER BY 1;
 
 SELECT * FROM jobs
@@ -129,16 +152,24 @@ SELECT * FROM jobs
 ;
 
 SELECT NVL(DECODE(GROUPING(department_id), 1, 'TOTAL Departments',
-      department_id), '(Sin departamento)') AS department_id,
+      department_id), '(Sin departamento)') AS department_idx,
    DECODE(GROUPING(job_id), 1, 'TOTAL Jobs', job_id) AS job_id,
-   COUNT(*) "Total Empl", AVG(salary) * 12 "Average Sal"
+   COUNT(*) "Total Empl", round(AVG(salary) * 12, 2) "Average Sal"
 FROM employees 
-GROUP BY ROLLUP (department_id, job_id)
+GROUP BY ROLLUP (department_id, job_id, EXTRACT(year FROM hire_date))
 ORDER BY department_id NULLS FIRST, job_id;
 
-SELECT ROWNUM, ROWID, employee_id
+SELECT ROWNUM, ROWID, department_id, employee_id
 FROM employees
-ORDER BY 3;
+ORDER BY 3, 4;
+
+SELECT
+    department_id, first_name, last_name, salary,
+    (select avg(salary) from employees d where d.department_id = e.department_id) sub,
+    avg(salary) OVER (PARTITION BY department_id) media
+FROM employees e
+where avg(salary) OVER (PARTITION BY department_id) > 4000
+ORDER BY 1;
 
 SELECT
     department_id, first_name, last_name, salary,
