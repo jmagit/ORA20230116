@@ -107,3 +107,52 @@ SELECT department_id, 'TOTAL', sum(salary), 2
 FROM employees e
 GROUP BY department_id
 Order by department_id,orden, last_name);
+
+SELECT * FROM (
+    SELECT job_id, department_id, salary
+    FROM employees
+    WHERE department_id in (20,50,80,90)
+) PIVOT (
+    sum(salary) for department_id in (20 as "Dept 20", 50 as "Dept 50", 80 as "Dept 80", 90 as "Dept 90")
+);
+
+SELECT * FROM (
+    SELECT EXTRACT(year FROM hire_date) año, TO_CHAR(hire_date, 'Q') trimestre
+    FROM employees
+) PIVOT (
+    count(*) for trimestre in ('1' as "1T", '2' as "2T", '3' as "3T", '4' as "4T")
+)
+ORDER BY 1;
+
+SELECT * FROM jobs
+    UNPIVOT (salary for tipo in (MIN_SALARY as 'min', MAX_SALARY as 'max'))
+;
+
+SELECT NVL(DECODE(GROUPING(department_id), 1, 'TOTAL Departments',
+      department_id), '(Sin departamento)') AS department_id,
+   DECODE(GROUPING(job_id), 1, 'TOTAL Jobs', job_id) AS job_id,
+   COUNT(*) "Total Empl", AVG(salary) * 12 "Average Sal"
+FROM employees 
+GROUP BY ROLLUP (department_id, job_id)
+ORDER BY department_id NULLS FIRST, job_id;
+
+SELECT ROWNUM, ROWID, employee_id
+FROM employees
+ORDER BY 3;
+
+SELECT
+    department_id, first_name, last_name, salary,
+    ROW_NUMBER() OVER (PARTITION BY department_id ORDER BY salary desc) rn
+FROM employees
+ORDER BY 1, rn;
+  
+SELECT last_name, salary,
+       RANK() OVER (ORDER BY salary DESC) RANK
+FROM employees
+ORDER BY RANK;
+
+SELECT last_name, salary, ROUND(AVG(salary) OVER(PARTITION BY department_id),0) media
+FROM employees
+--where AVG(salary) OVER(PARTITION BY department_id) > 4000
+ORDER BY 1;
+

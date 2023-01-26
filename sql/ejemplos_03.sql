@@ -160,14 +160,6 @@ FROM employees
 WHERE department_id in (20,50,80,90)
 GROUP BY job_id, department_id;
 
-SELECT * FROM
-(SELECT job_id, department_id, salary
-FROM employees
-WHERE department_id in (20,50,80,90)
-) PIVOT (
-    sum(salary) for department_id in (20 as "Dept 20", 50 as "Dept 50", 80 as "Dept 80", 90 as "Dept 90")
-);
-
 WITH 
    dept_costs AS (
       SELECT department_name, SUM(salary) dept_total
