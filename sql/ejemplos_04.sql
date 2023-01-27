@@ -76,6 +76,28 @@ FROM employees e JOIN (
 where media > 4000
 ORDER BY 1;
 
+WITH media_salario AS (
+    SELECT job_id, avg(salary) media
+            FROM employees
+            GROUP BY job_id
+), jefes AS (
+SELECT d.*
+FROM hr.employees e 
+    RIGHT JOIN hr.departments d ON e.department_id = d.department_id
+WHERE e.employee_id is null
+)
+SELECT e.last_name, salary, media
+FROM employees e JOIN media_salario sal ON e.job_id = sal.job_id
+where media > 4000
+ORDER BY 1;
+
+WITH media_salario(trabajo, valor) AS (
+    SELECT job_id, avg(salary) media
+            FROM employees
+            GROUP BY job_id
+)
+select * from media_salario;
+
 SELECT e.last_name, salary, media
 FROM employees e JOIN (
         SELECT job_id, avg(salary) media
@@ -187,3 +209,51 @@ FROM employees
 --where AVG(salary) OVER(PARTITION BY department_id) > 4000
 ORDER BY 1;
 
+WITH 
+   dept_costs AS (
+      SELECT department_name, SUM(salary) dept_total
+         FROM employees e, departments d
+         WHERE e.department_id = d.department_id
+      GROUP BY department_name),
+   avg_cost AS (
+      SELECT SUM(dept_total)/COUNT(*) avg
+      FROM dept_costs)
+SELECT * FROM dept_costs
+   WHERE dept_total >
+      (SELECT avg FROM avg_cost)
+      ORDER BY department_name;
+
+WITH 
+   dept_costs AS (
+      SELECT department_name, SUM(salary) dept_total
+         FROM employees e, departments d
+         WHERE e.department_id = d.department_id
+      GROUP BY department_name),
+   avg_cost AS (
+      SELECT SUM(dept_total)/COUNT(*) avg
+      FROM dept_costs)
+SELECT * FROM (SELECT department_name, SUM(salary) dept_total
+         FROM employees e, departments d
+         WHERE e.department_id = d.department_id
+      GROUP BY department_name)
+   WHERE dept_total >
+      (SELECT avg FROM SELECT SUM(dept_total)/COUNT(*) avg
+      FROM dept_costs)
+      ORDER BY department_name; 
+      
+SELECT LPAD(' ',2*(LEVEL-1)) || last_name org_chart, 
+        employee_id, manager_id, job_id
+    FROM employees
+    where employee_id = 101
+    START WITH job_id = 'AD_VP' 
+    CONNECT BY PRIOR employee_id = manager_id; 
+    
+update employees e
+set 
+--salary = salary * (select location_id from departamets d where e.department_id = d.department_id ),
+--    COMMISSION_PCT =  COMMISSION_PCT *(select MANAGER_ID from departamets d where e.department_id = d.department_id)
+(salary, COMMISSION_PCT) = (select salary * location_id, COMMISSION_PCT *MANAGER_ID from departamets d where e.department_id = d.department_id)
+, job_id = 'kk'
+;
+select * from employees;
+commit
