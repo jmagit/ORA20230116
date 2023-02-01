@@ -225,14 +225,20 @@ begin
 --      end if
 --   END LOOP;
 <<externo>>
-for i in 1..10
-    loop 
-    for i in 1..10
-        loop 
+for i in 1..10 loop 
+    <<interno>>
+    for i in 1..10 loop
+    if i > 0 then 
+        dbms_output.put_line('haz algo');
+        exit; 
+    end if;
+    exit interno when i > 0;
+        
             dbms_output.put_line('cont: ' || externo.i || ', ' || i);
             --continue externo when (externo.i * i) > 60;
             goto pinta;
         end loop;
+        
     end loop;
 --...
 <<pinta>>    
