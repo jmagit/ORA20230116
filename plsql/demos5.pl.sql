@@ -56,19 +56,27 @@ BEGIN
 END;
 
 */
-
+/*
 DECLARE
    CURSOR c_emp_cursor(numdep number) IS 
-       SELECT employee_id, last_name 
+       SELECT employee_id, last_name
        FROM employees
        WHERE  department_id = numdep;
     v_emp_record	c_emp_cursor%ROWTYPE;
     v_dep number := null;
+    v_rows_dep number;
+--    type nom_tipo is record(c1 employees.employee_id%type default 0, c2 tipo);
+--    emp employees%rowtype;
 BEGIN
-  select department_id
-  into v_dep
+  select count(*), min(department_id)
+  into v_rows_dep, v_dep
   from Departments
   where department_name = 'Shipping';
+--  select department_id
+--  into v_dep
+--  from Departments
+--  where department_name = 'xShipping'
+--  ;
   DBMS_OUTPUT.PUT_LINE('department: ' || v_dep);
   
   OPEN c_emp_cursor(v_dep);
@@ -79,3 +87,35 @@ BEGIN
   END LOOP;
   CLOSE c_emp_cursor;
 END;
+
+*/
+DECLARE
+    c_emp_cursor SYS_REFCURSOR;
+    v_empno employees.employee_id%TYPE;
+    v_lname employees.last_name%TYPE;
+BEGIN
+  OPEN c_emp_cursor FOR SELECT employee_id, last_name 
+       FROM employees
+       WHERE  department_id =30;
+  IF NOT (c_emp_cursor%ISOPEN) THEN
+    --OPEN c_emp_cursor;
+    DBMS_OUTPUT.PUT_LINE('Abro cursor'); 
+  END IF;
+  FETCH c_emp_cursor INTO v_empno, v_lname;
+  WHILE c_emp_cursor%FOUND LOOP
+    DBMS_OUTPUT.PUT_LINE(c_emp_cursor%ROWCOUNT || ' row => ' || v_empno ||' '|| v_lname);    
+    FETCH c_emp_cursor INTO v_empno, v_lname;
+  END LOOP;
+  
+  CLOSE c_emp_cursor;
+END;
+
+
+
+
+
+
+
+
+
+
