@@ -7,7 +7,7 @@ DECLARE
        WHERE  department_id = numdep;
     v_emp_record	c_emp_cursor%ROWTYPE;
     v_dep number := 10;
-    v_dept varchar(100) := 'xIT';
+    v_dept varchar(500) := 'xIT';
     no_puedo_exception EXCEPTION;
     insert_null_exception EXCEPTION;
     PRAGMA EXCEPTION_INIT(insert_null_exception, -1400);
@@ -55,9 +55,15 @@ BEGIN
     FETCH c_emp_cursor INTO v_emp_record;
   END LOOP;
   CLOSE c_emp_cursor;
+  commit;
 EXCEPTION
 --    WHEN interna_exception THEN DBMS_OUTPUT.PUT_LINE('sin departamento');
-    WHEN TOO_MANY_ROWS OR NO_DATA_FOUND THEN DBMS_OUTPUT.PUT_LINE('Esta mal el departamento');
+    WHEN TOO_MANY_ROWS OR NO_DATA_FOUND THEN 
+        rollback;
+--        insert into messages(results)
+--        values(SQLCODE || ' >>>> ' || SQLERRM);
+--        commit;
+        DBMS_OUTPUT.PUT_LINE('Esta mal el departamento');
     WHEN no_puedo_exception THEN DBMS_OUTPUT.PUT_LINE('sin departamento');
     WHEN OTHERS THEN
        CASE SQLCODE 
@@ -68,6 +74,11 @@ EXCEPTION
        WHEN -1400 THEN
         DBMS_OUTPUT.PUT_LINE(SQLCODE || ' >>>> ' || SQLERRM);
        else
-        DBMS_OUTPUT.PUT_LINE(SQLCODE || ' >>>> ' || SQLERRM);
+        DBMS_OUTPUT.PUT_LINE('ERROR: ' ||  SQLCODE || ' >>>> ' || SQLERRM);
+        v_dept := 'ERROR: ' ||  SQLCODE || ' >>>> ' || SQLERRM;
+        rollback;
+        insert into messages(RESULTS)
+        values(v_dept);
+        commit;
        END CASE;
 END;
