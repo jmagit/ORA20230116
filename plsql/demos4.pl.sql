@@ -22,12 +22,12 @@ DECLARE
 --       FOR indice IN INDICES OF tabla LOOP 
 --           DBMS_OUTPUT.PUT_LINE(indice || ' => '|| tabla(indice));  
 --       END LOOP;
---       FOR valor IN VALUES OF tabla LOOP
---          DBMS_OUTPUT.PUT_LINE(valor);
---       END LOOP;
-       FOR indice, valor IN PAIRS OF tabla LOOP
-          DBMS_OUTPUT.PUT_LINE(indice || ' => '|| valor);
+       FOR valor IN VALUES OF tabla LOOP
+          DBMS_OUTPUT.PUT_LINE(valor);
        END LOOP;
+--       FOR indice, valor IN PAIRS OF tabla LOOP
+--          DBMS_OUTPUT.PUT_LINE(indice || ' => '|| valor);
+--       END LOOP;
        
        dbms_output.put_line('---');
     END;
