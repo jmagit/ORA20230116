@@ -1,6 +1,4 @@
 /*
-   CREATE SEQUENCE  "HR"."EMPLEADOS_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
-
   CREATE TABLE "HR"."EMPLEADOS" 
    (	"ID_EMPLEADO" NUMBER(4,0) NOT NULL ENABLE, 
 	"NOMBRE" VARCHAR2(50 BYTE) NOT NULL ENABLE, 
@@ -50,38 +48,25 @@
   BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "USERS" ;
 
-  CREATE OR REPLACE NONEDITIONABLE TRIGGER "HR"."EMPLEADOS_TRG" 
-BEFORE INSERT ON EMPLEADOS 
-FOR EACH ROW 
-BEGIN
-  <<COLUMN_SEQUENCES>>
-  BEGIN
-    IF INSERTING AND :NEW.ID_EMPLEADO IS NULL THEN
-      SELECT EMPLEADOS_SEQ.NEXTVAL INTO :NEW.ID_EMPLEADO FROM SYS.DUAL;
-    END IF;
-  END COLUMN_SEQUENCES;
-END;
-/
-ALTER TRIGGER "HR"."EMPLEADOS_TRG" ENABLE;
-
   CREATE OR REPLACE NONEDITIONABLE TRIGGER "HR"."EMPLEADOS_ANTES_ROW" 
 BEFORE DELETE OR INSERT OR UPDATE ON HR.EMPLEADOS 
 FOR EACH ROW 
 BEGIN
     IF inserting THEN
         dbms_output.put_line('EMPLEADOS_ANTES_ROW INSERTING: ' || :new.EMPLEADO);
+        :new.NOMBRE := upper(:new.NOMBRE);
         :new.apellidos := upper(:new.apellidos);
     ELSIF updating THEN
         dbms_output.put_line('EMPLEADOS_ANTES_ROW UPDATING: ' || :new.id_empleado);
     ELSE
+        dbms_output.put_line('EMPLEADOS_ANTES_ROW DELETING: ' || :old.id_empleado);
         if :old.activo = 'V' then
         RAISE_APPLICATION_ERROR(-20666, 'Invalid data: No se pueden borrar empleados activos.');
         end if;
-        dbms_output.put_line('EMPLEADOS_ANTES_ROW DELETING: ' || :old.id_empleado);
     END IF;
 END;
 /
-ALTER TRIGGER "HR"."EMPLEADOS_ANTES_ROW" ENABLE;
+ALTER TRIGGER "HR"."EMPLEADOS_ANTES_ROW" DISABLE;
 
   CREATE OR REPLACE NONEDITIONABLE TRIGGER "HR"."EMPLEADOS_COMPUESTO" 
 FOR DELETE ON EMPLEADOS
@@ -158,6 +143,21 @@ BEGIN
 END;
 /
 ALTER TRIGGER "HR"."EMPLEADOS_DESPUES_ROW" ENABLE;
+
+  CREATE OR REPLACE NONEDITIONABLE TRIGGER "HR"."EMPLEADOS_TRG" 
+BEFORE INSERT ON EMPLEADOS 
+FOR EACH ROW 
+BEGIN
+  <<COLUMN_SEQUENCES>>
+  BEGIN
+    IF INSERTING AND :NEW.ID_EMPLEADO IS NULL THEN
+      --SELECT EMPLEADOS_SEQ.NEXTVAL INTO :NEW.ID_EMPLEADO FROM SYS.DUAL;
+      :NEW.ID_EMPLEADO := EMPLEADOS_SEQ.NEXTVAL;
+    END IF;
+  END COLUMN_SEQUENCES;
+END;
+/
+ALTER TRIGGER "HR"."EMPLEADOS_TRG" ENABLE;
 */
 
 insert into empleados(nombre, apellidos, Salario, id_departamento)
@@ -166,13 +166,15 @@ select *  from empleados;
 
 update empleados
 set apellidos = apellidos
+where 1 <> 1;
 where empleados.id_empleado > 1 or 1 <> 1;
 
 update empleados
-set activo = 'V'
+set activo = 'F'
+where id_empleado < 6;
 where id_departamento = 100;
 -- commit;
 delete from empleados 
-where id_departamento = 100;
+where id_empleado = 6; id_departamento = 100;
 
 rollback;
