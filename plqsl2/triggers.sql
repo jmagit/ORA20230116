@@ -1,4 +1,5 @@
 /*
+   CREATE SEQUENCE  "HR"."EMPLEADOS_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
 
   CREATE TABLE "HR"."EMPLEADOS" 
    (	"ID_EMPLEADO" NUMBER(4,0) NOT NULL ENABLE, 
@@ -170,7 +171,7 @@ where empleados.id_empleado > 1 or 1 <> 1;
 update empleados
 set activo = 'V'
 where id_departamento = 100;
-commit;
+-- commit;
 delete from empleados 
 where id_departamento = 100;
 
