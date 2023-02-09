@@ -26,15 +26,15 @@ begin
     DBMS_OUTPUT.PUT_LINE('nombre: ' || nombre('pepito', 'grillo'));
 end;
 
---WITH     (FUNCTION nombre 
---    (
---      nom IN varchar2, ape varchar2
---    ) RETURN varchar2 AS 
---    BEGIN
---      RETURN initcap(ape) || ', ' || initcap(nom);
---    END)
---select nombre(first_name, last_name) 
---from employees;
+WITH FUNCTION nombre 
+    (
+      nom IN varchar2, ape varchar2
+    ) RETURN varchar2 AS 
+    BEGIN
+      RETURN initcap(ape) || ', ' || initcap(nom);
+    END;
+select nombre(first_name, last_name) 
+from employees;
 */
 /*
 CREATE OR REPLACE FUNCTION CUENTA_EMP 
