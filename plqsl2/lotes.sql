@@ -11,27 +11,27 @@ declare
     v_cursor SYS_REFCURSOR;
     v_sql_cmd VARCHAR2(500);
     
-    iterations  CONSTANT PLS_INTEGER := 50000;
+    iterations  CONSTANT PLS_INTEGER := 1000;
     t1  INTEGER;
     t2  INTEGER;
     t3  INTEGER;
 begin
-    SELECT employee_id, first_name || ' ' || last_name
-    BULK COLLECT INTO t_keys, t_nombres
-    FROM employees
-    ORDER BY employee_id;    
-    for i in 1 .. t_keys.count loop
-        DBMS_OUTPUT.PUT_LINE(t_keys(i) || ' -> ' || t_nombres(i));
-    end loop;
-    DBMS_OUTPUT.new_line();
-
---    SELECT * 
---    BULK COLLECT INTO puestos
---    FROM jobs;
---    for puesto in values of puestos loop
---        DBMS_OUTPUT.PUT_LINE(puesto.job_title);
+--    SELECT employee_id, first_name || ' ' || last_name
+--    BULK COLLECT INTO t_keys, t_nombres
+--    FROM employees
+--    ORDER BY employee_id;    
+--    for i in 1 .. t_keys.count loop
+--        DBMS_OUTPUT.PUT_LINE(t_keys(i) || ' -> ' || t_nombres(i));
 --    end loop;
 --    DBMS_OUTPUT.new_line();
+
+    SELECT * 
+    BULK COLLECT INTO puestos
+    FROM jobs;
+    for puesto in values of puestos loop
+        DBMS_OUTPUT.PUT_LINE(puesto.job_title);
+    end loop;
+    DBMS_OUTPUT.new_line();
 --    
 --    v_sql_cmd := 'SELECT * FROM jobs ORDER BY job_title';
 --    open v_cursor FOR v_sql_cmd;
@@ -55,24 +55,24 @@ begin
 --    DBMS_OUTPUT.new_line();DBMS_OUTPUT.new_line();
 --    rollback;
 
---    t_nombres := nombres_array();
---    FOR i IN 1..iterations LOOP
---        t_nombres.extend;
---        t_nombres(i) := 'FOR: ' || i;
---    END LOOP;
---    t1 := DBMS_UTILITY.get_time;
---    FOR i IN 1..iterations LOOP
---        insert INTO messages(results) values(t_nombres(i));
---    END LOOP;
---    t2 := DBMS_UTILITY.get_time;
---    FORALL i IN 1..iterations
---        insert INTO messages(results) values(t_nombres(i));
---    t3 := DBMS_UTILITY.get_time;
---    
---    DBMS_OUTPUT.PUT_LINE('Execution Time (secs)');
---    DBMS_OUTPUT.PUT_LINE('---------------------');
---    DBMS_OUTPUT.PUT_LINE('FOR LOOP: ' || TO_CHAR((t2 - t1)/100));
---    DBMS_OUTPUT.PUT_LINE('FORALL:   ' || TO_CHAR((t3 - t2)/100));
---    rollback;
+    t_nombres := nombres_array();
+    FOR i IN 1..iterations LOOP
+        t_nombres.extend;
+        t_nombres(i) := 'FOR: ' || i;
+    END LOOP;
+    t1 := DBMS_UTILITY.get_time;
+    FOR i IN 1..iterations LOOP
+        insert INTO messages(results) values(t_nombres(i));
+    END LOOP;
+    t2 := DBMS_UTILITY.get_time;
+    FORALL i IN 1..iterations
+        insert INTO messages(results) values(t_nombres(i));
+    t3 := DBMS_UTILITY.get_time;
+    
+    DBMS_OUTPUT.PUT_LINE('Execution Time (secs)');
+    DBMS_OUTPUT.PUT_LINE('---------------------');
+    DBMS_OUTPUT.PUT_LINE('FOR LOOP: ' || TO_CHAR((t2 - t1)/100));
+    DBMS_OUTPUT.PUT_LINE('FORALL:   ' || TO_CHAR((t3 - t2)/100));
+    rollback;
 
 end;
